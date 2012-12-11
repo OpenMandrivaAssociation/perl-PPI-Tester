@@ -1,25 +1,25 @@
 %define upstream_name    PPI-Tester
 %define upstream_version 0.15
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 3
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	3
 
-Summary:    A wxPerl-based interactive PPI debugger/tester
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/PPI/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	A wxPerl-based interactive PPI debugger/tester
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/PPI/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(Devel::Dumpvar)
-BuildRequires: perl(ExtUtils::MakeMaker)
-BuildRequires: perl(File::Spec)
-BuildRequires: perl(PPI)
-BuildRequires: perl(Test::More)
-BuildRequires: perl(Test::Script)
-BuildRequires: perl(Wx)
-BuildArch: noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:	perl-devel
+BuildRequires:	perl(Devel::Dumpvar)
+BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(File::Spec)
+BuildRequires:	perl(PPI)
+BuildRequires:	perl(Test::More)
+BuildRequires:	perl(Test::Script)
+BuildRequires:	perl(Wx)
+BuildArch:	noarch
 
 %description
 This package implements a wxWindows desktop application which provides the
@@ -36,24 +36,34 @@ the command line.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
-make test
+# require GTK display
+# make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc README LICENSE Changes
+%{perl_vendorlib}/*
+%{_bindir}/ppitester
+%{_mandir}/man1/*
 %{_mandir}/man3/*
-%perl_vendorlib/*
-/usr/bin/ppitester
-/usr/share/man/man1/ppitester.1.lzma
+
+
+%changelog
+* Tue Jul 13 2010 Jérôme Quelin <jquelin@mandriva.org> 0.150.0-2mdv2011.0
++ Revision: 551995
+- rebuild
+
+* Thu Jun 25 2009 Jérôme Quelin <jquelin@mandriva.org> 0.150.0-1mdv2010.0
++ Revision: 389136
+- import perl-PPI-Tester
+
+
+* Thu Jun 25 2009 cpan2dist 0.15-1mdv
+- initial mdv release, generated with cpan2dist
 
