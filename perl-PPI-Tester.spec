@@ -1,15 +1,13 @@
 %define upstream_name    PPI-Tester
-%define upstream_version 0.15
-
 Name:		perl-%{upstream_name}
-Version:	%{upstream_version}
-Release:	6
+Version:	0.15
+Release:	7
 
 Summary:	A wxPerl-based interactive PPI debugger/tester
 License:	GPL+ or Artistic
 Group:		Development/Perl
 Url:		https://svn.ali.as/cpan/trunk/PPI-Tester
-Source0:	https://cpan.metacpan.org/authors/id/A/AD/ADAMK/PPI-Tester-%{upstream_version}.tar.gz
+Source0:	https://cpan.metacpan.org/authors/id/A/AD/ADAMK/PPI-Tester-%{version}.tar.gz
 
 BuildRequires:	make
 BuildRequires:	perl-devel
@@ -34,7 +32,7 @@ the command line.
   ppitester
 
 %prep
-%setup -q -n %{upstream_name}-%{upstream_version}
+%setup -q -n %{upstream_name}-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
